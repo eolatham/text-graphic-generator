@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="stylesheet" href={{ url_for('static', filename="css/bootstrap.min.css") }}>
+    <link rel="stylesheet" href={{ url_for('static', filename="css/style.css") }}>
+    <script src={{ url_for('static', filename="js/jquery.min.js") }}></script>
+    <script src={{ url_for('static', filename="js/bootstrap.bundle.min.js") }}></script>
+    <title>Text Graphic Generator</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+</head>
+
+<body>
+    <br>
+    <div id="content">
+        <form id="generate-graphics-form" action="generate" autocomplete=off>
+            <h3 style="text-align: center">Text Graphic Generator</h3>
+            <div class="container-top">
+                <div class="form-group">
+                    <label for="quotes">Paste in line-separated quotes.</label>
+                    <textarea class="form-control" id="quotes" rows=10 required></textarea>
+                </div>
+            </div>
+            <div class="lds-css-loading ng-scope" id="lds-css-loading" style="width: 100%; margin: 0px auto">
+                <div class="lds-spinner" style="width:100%;height:100%; margin: 0px auto">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <input type="submit" id="generate-graphics" class="btn btn-block btn-success"
+                style="margin: 15px 0px 0px 0px;" value="Generate">
+        </form>
+    </div>
+    <br>
+    <script src={{ url_for('static', filename="js/generate.js") }}></script>
+    <script src={{ url_for('static', filename="js/request_error_handler.js") }}></script>
+</body>
+
+</html>

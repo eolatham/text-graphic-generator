@@ -56,6 +56,7 @@ function generateGraphic(formData) {
             a.href = URL.createObjectURL(blob);
             a.rel = 'noopener';
             a.click();
+            hideLoadingIconAndEnableButton()
         })
         .catch(response => {
             var message = `An unexpected error occurred... Status code: ${response.status}`;

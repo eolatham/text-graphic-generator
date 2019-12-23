@@ -2,4 +2,4 @@ flask
 Pillow
 numpy
 unidecode
-gunicorn
+gunicorn3

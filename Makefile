@@ -7,5 +7,4 @@ setup:
 	sudo pipenv shell
 
 start:
-	cd public
-	sudo gunicorn3 -w 2 -b :80 app:app
+	cd public && sudo gunicorn3 -w 2 -b :80 app:app

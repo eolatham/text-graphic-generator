@@ -56,7 +56,6 @@ function generateGraphic(formData) {
             a.href = URL.createObjectURL(blob);
             a.type = 'image/png';
             a.rel = 'noopener';
-            a.id = 'image';
             a.click();
             hideLoadingIconAndEnableButton()
         })

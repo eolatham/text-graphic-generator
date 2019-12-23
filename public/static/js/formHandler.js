@@ -30,8 +30,8 @@ function checkQuote(formData) {
             })
             .then(formData => generateGraphic(formData))
             .catch(message => {
-                window.alert(message);
                 hideLoadingIconAndEnableButton();
+                window.alert(message);
             }));
 }
 
@@ -52,17 +52,17 @@ function generateGraphic(formData) {
         })
         .then(response => response.blob())
         .then(blob => {
+            hideLoadingIconAndEnableButton()
             var a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
             a.type = 'image/png';
             a.rel = 'noopener';
             a.click();
-            hideLoadingIconAndEnableButton()
         })
         .catch(response => {
+            hideLoadingIconAndEnableButton();
             var message = `An unexpected error occurred... Status code: ${response.status}`;
             window.alert(message);
-            hideLoadingIconAndEnableButton();
         });
 }
 

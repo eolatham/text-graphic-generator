@@ -9,17 +9,14 @@ from unidecode import unidecode
 from variables import allowed_letters, allowed_chars, max_word_count, max_word_len
 
 
-def format_text(text: str, reduce_punct: bool) -> Tuple[str, List[str]]:
+def format_text(text: str, reduce_punct: bool) -> str:
     text = unidecode(text).upper()
 
     if reduce_punct:
         text = text.lstrip("!&,-.:;?")
         text = text.rstrip("&,-.:;")
 
-    words = text.split()
-    text = " ".join(words)
-
-    return text, words
+    return text
 
 
 def text_is_blank(text: str, words: List[str]) -> bool:
@@ -48,38 +45,43 @@ def text_has_bad_char(text: str, good_chars: str) -> bool:
 
 
 def text_has_too_many_consec_letters(text: str, letters: str) -> bool:
-    pattern = "([%s])\1{2,}" % letters
+    pattern = "([%s])\\1{2,}" % letters
     return search(pattern, text) is not None
 
 
-def check_text(text: str, words: List[str]) -> Tuple[bool, str or None]:
+def __check_text(text: str, words: List[str]) -> Tuple[bool, str or None]:
     if text_is_blank(text, words):
-        return (False, f"Formatted quote <{text}> is blank. Skipping quote...")
+        return (False, f"Your quote is blank\nPlease try again")
 
     elif text_has_no_words(text, allowed_letters):
-        return (False, f"Formatted quote <{text}> has no words. Skipping quote...")
+        return (False, f"Your quote has no words\nPlease try again")
 
     elif text_exceeds_max_word_count(words, max_word_count):
         return (
             False,
-            f"Formatted quote <{text}> exceeds the maximum word count of <{max_word_count}>. Skipping quote...",
+            f"Your quote exceeds the maximum word count of {max_word_count}\nPlease try again",
         )
     elif text_exceeds_max_word_length(words, max_word_len):
         return (
             False,
-            f"Formatted quote <{text}> contains a word that exceeds the maximum word length of <{max_word_len}>. Skipping quote...",
+            f"Your quote contains a word that exceeds the maximum word length of {max_word_len}\nPlease try again",
         )
     elif text_has_bad_char(text, allowed_chars):
         return (
             False,
-            f"Formatted quote <{text}> deviates from the allowed characters of <{allowed_chars}>. Skipping quote...",
+            f"Your quote deviates from the allowed characters of {repr(allowed_chars)}\nPlease try again",
         )
     elif text_has_too_many_consec_letters(text, allowed_letters):
         return (
             False,
-            f"Formatted quote <{text}> contains too many consecutive matching letters. Skipping quote...",
+            f"Your quote contains too many consecutive matching letters\nPlease try again",
         )
     return True, None
+
+
+def check_text(text: str, reduce_punct: bool) -> Tuple[bool, str or None]:
+    text = format_text(text, reduce_punct)
+    return __check_text(text, text.split())
 
 
 def possible_max_line_lengths(text: str, words: List[str]) -> List[int]:

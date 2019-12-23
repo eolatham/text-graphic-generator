@@ -36,7 +36,7 @@ def generate_line_spacing(font_size: int) -> int:
 
 
 def get_text_alignment(text: str, style: str) -> str:
-    assert style in ["smart", "random", "left", "right", "center"]
+    assert style in ["smart", "left", "right", "center"]
 
     if style == "smart":
         if len(text.split("\n")) in range(5):
@@ -45,8 +45,6 @@ def get_text_alignment(text: str, style: str) -> str:
             return "left"
         else:
             return choice(["left", "right"])
-    elif style == "random":
-        return choice(["left", "right", "center"])
     else:
         return style
 

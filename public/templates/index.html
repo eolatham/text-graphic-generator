@@ -13,37 +13,133 @@
 <body>
     <br>
     <div id="content">
-        <form id="generate-graphics-form" action="generate" autocomplete=off>
+        <form id="generate-graphic-form" autocomplete=off>
             <h3 style="text-align: center">Text Graphic Generator</h3>
             <div class="container-top">
                 <div class="form-group">
-                    <label for="quotes">Paste in line-separated quotes.</label>
-                    <textarea class="form-control" id="quotes" rows=10 required></textarea>
+                    <textarea class="form-control" id="quote" rows=5 placeholder="Your Amazing Quote"
+                        required></textarea>
                 </div>
-            </div>
-            <div class="lds-css-loading ng-scope" id="lds-css-loading" style="width: 100%; margin: 0px auto">
-                <div class="lds-spinner" style="width:100%;height:100%; margin: 0px auto">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                <hr>
+                <div class="form-group">
+                    <div>
+                        <label class="form-label"><b>Text Formatting Options</b></label>
+                    </div>
+                    <div>
+                        <label class="form-label" for="wrap-text">Wrap Text: </label>
+                        <input type="checkbox" class="wrap-text-checkbox" id="wrap-text" checked="checked">
+                    </div>
+                    <div>
+                        <label class="form-label" for="reduce-punctuation">Reduce Punctuation: </label>
+                        <input type="checkbox" class="reduce-punctuation-checkbox" id="reduce-punctuation"
+                            checked="checked">
+                    </div>
+                    <div>
+                        <label class="form-label">Alignment Style: </label>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="alignment-style-smart" name="alignment-style-radio" value="smart"
+                                class="custom-control-input" checked="checked">
+                            <label class="custom-control-label" for="alignment-style-smart">Smart</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="alignment-style-left" name="alignment-style-radio" value="left"
+                                class="custom-control-input">
+                            <label class="custom-control-label" for="alignment-style-left">Left</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="alignment-style-right" name="alignment-style-radio" value="right"
+                                class="custom-control-input">
+                            <label class="custom-control-label" for="alignment-style-right">Right</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="alignment-style-center" name="alignment-style-radio" value="center"
+                                class="custom-control-input">
+                            <label class="custom-control-label" for="alignment-style-center">Center</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <input type="submit" id="generate-graphics" class="btn btn-block btn-success"
-                style="margin: 15px 0px 0px 0px;" value="Generate">
+                <hr>
+                <div class="form-group">
+                    <div>
+                        <label class="form-label"><b>Graphic Styling Options</b></label>
+                    </div>
+                    <div>
+                        <label class="form-label">Color Template: </label>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="color-template-black-white" name="color-template-radio"
+                                value="black-white" class="custom-control-input" checked="checked">
+                            <label class="custom-control-label" for="color-template-black-white">Black Text On
+                                White</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="color-template-white-black" name="color-template-radio"
+                                value="white-black" class="custom-control-input">
+                            <label class="custom-control-label" for="color-template-white-black">White Text On
+                                Black</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="color-template-white-red" name="color-template-radio"
+                                value="white-red" class="custom-control-input">
+                            <label class="custom-control-label" for="color-template-white-red">White Text On Red</label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label">Watermark Position: </label>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="watermark-position-all" name="watermark-position-radio" value="all"
+                                class="custom-control-input" checked="checked">
+                            <label class="custom-control-label" for="watermark-position-all">All Corners</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="watermark-position-top-left" name="watermark-position-radio"
+                                value="top_left" class="custom-control-input">
+                            <label class="custom-control-label" for="watermark-position-top-left">Top Left</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="watermark-position-top-right" name="watermark-position-radio"
+                                value="top_right" class="custom-control-input">
+                            <label class="custom-control-label" for="watermark-position-top-right">Top Right</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="watermark-position-bottom-left" name="watermark-position-radio"
+                                value="bottom_left" class="custom-control-input">
+                            <label class="custom-control-label" for="watermark-position-bottom-left">Bottom Left</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="watermark-position-bottom-right" name="watermark-position-radio"
+                                value="bottom_right" class="custom-control-input">
+                            <label class="custom-control-label" for="watermark-position-bottom-right">Bottom
+                                Right</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="watermark-position-none" name="watermark-position-radio"
+                                value="none" class="custom-control-input">
+                            <label class="custom-control-label" for="watermark-position-none">None</label>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="lds-css-loading ng-scope" id="lds-css-loading" style="width: 100%; margin: 0px auto">
+                    <div class="lds-spinner" style="width:100%; height:100%; margin: 0px auto">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <input type="submit" id="generate-graphic" class="btn btn-block btn-success" value="Generate">
         </form>
     </div>
     <br>
-    <script src={{ url_for('static', filename="js/generate.js") }}></script>
-    <script src={{ url_for('static', filename="js/request_error_handler.js") }}></script>
+    <script src={{ url_for('static', filename="js/formHandler.js") }}></script>
 </body>
 
 </html>

@@ -2,3 +2,4 @@ flask
 Pillow
 numpy
 unidecode
+gunicorn

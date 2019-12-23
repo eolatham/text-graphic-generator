@@ -4,12 +4,12 @@
 
 - SSH into the VM
 
-- Run `sudo apt-get install build-essential`
-
 - Clone the GitLab repository
+
+- Run `sudo apt-get install build-essential`
 
 - Run `cd text-graphic-generator-webapp`
 
-- Run `make init` and wait for it to finish
+- Run `make init`
 
 - You're done!

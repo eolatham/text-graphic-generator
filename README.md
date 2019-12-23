@@ -12,8 +12,4 @@
 
 - Run `make init`
 
-- Run `cd public`
-
-- Run `sudo python3 app.py`
-
 - You're done!

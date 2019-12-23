@@ -92,3 +92,7 @@ def generate():
         attachment_filename="image.png",
         as_attachment=True,
     )
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=80)

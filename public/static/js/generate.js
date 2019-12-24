@@ -1,19 +1,14 @@
-function showLoadingIconAndDisableButton() {
-    var loading = document.getElementById('lds-css-loading');
-    loading.style.display = 'block';
-    loading.scrollIntoView();
-
-    $('#generate-graphic').prop('disabled', true);
+function showLoaderAndDisableButton() {
+    $('.loader').css('display', 'block')
+    $('#generate').prop('disabled', true);
 }
 
-function hideLoadingIconAndEnableButton() {
-    var loading = document.getElementById('lds-css-loading');
-    loading.style.display = 'none';
-
-    $('#generate-graphic').prop('disabled', false);
+function hideLoaderAndEnableButton() {
+    $('.loader').css('display', 'none')
+    $('#generate').prop('disabled', false);
 }
 
-function checkQuote(formData) {
+function checkText(formData) {
     fetch('check',
         {
             method: 'POST',
@@ -30,7 +25,7 @@ function checkQuote(formData) {
             })
             .then(formData => generateGraphic(formData))
             .catch(message => {
-                hideLoadingIconAndEnableButton();
+                hideLoaderAndEnableButton();
                 window.alert(message);
             }));
 }
@@ -52,7 +47,7 @@ function generateGraphic(formData) {
         })
         .then(response => response.blob())
         .then(blob => {
-            hideLoadingIconAndEnableButton()
+            hideLoaderAndEnableButton()
             var a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
             a.type = 'image/png';
@@ -60,26 +55,25 @@ function generateGraphic(formData) {
             a.click();
         })
         .catch(response => {
-            hideLoadingIconAndEnableButton();
+            hideLoaderAndEnableButton();
             var message = `An unexpected error occurred... Status code: ${response.status}`;
             window.alert(message);
         });
 }
 
-function handleForm() {
-    $('#generate-graphic-form').submit((e) => {
-        e.preventDefault();
-        showLoadingIconAndDisableButton();
+function generate() {
+    $('#generate').click(function () {
+        showLoaderAndDisableButton();
         const formData = {
-            quote: $('#quote').val(),
-            wrap_text: $('#wrap-text').is(':checked'),
-            reduce_punctuation: $('#reduce-punctuation').is(':checked'),
+            text: $('#text').val(),
+            text_wrap: $('input[name=text-wrap-radio]:checked').val(),
+            punctuation_style: $('input[name=punctuation-style-radio]:checked').val(),
             alignment_style: $('input[name=alignment-style-radio]:checked').val(),
             color_template: $('input[name=color-template-radio]:checked').val(),
             watermark_position: $('input[name=watermark-position-radio]:checked').val(),
         }
-        checkQuote(formData);
+        checkText(formData);
     });
 }
 
-$(document).ready(handleForm());
+$(document).ready(generate());

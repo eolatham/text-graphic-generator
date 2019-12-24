@@ -1,145 +1,218 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
-<head>
-    <link rel="stylesheet" href={{ url_for('static', filename="css/bootstrap.min.css") }}>
-    <link rel="stylesheet" href={{ url_for('static', filename="css/style.css") }}>
-    <script src={{ url_for('static', filename="js/jquery.min.js") }}></script>
-    <script src={{ url_for('static', filename="js/bootstrap.bundle.min.js") }}></script>
-    <title>Text Graphic Generator</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
-</head>
+<title>Text Graphic Generator</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://fonts.googleapis.com/css?family=Impact" rel="stylesheet" type="text/css">
+
+<style>
+    body,
+    h1,
+    h2,
+    textarea,
+    .radio-toolbar {
+        font-family: "Impact", Charcoal, sans-serif;
+    }
+
+    h1 {
+        font-size: 5vh;
+    }
+
+    h2 {
+        font-size: 3vh;
+    }
+
+    #text {
+        width: 90%;
+        height: 10vh;
+        resize: vertical;
+        text-transform: uppercase;
+    }
+
+    #text::placeholder {
+        color: lightgray;
+    }
+
+    .radio-toolbar {
+        margin: 1%;
+    }
+
+    .radio-toolbar input[type="radio"] {
+        position: fixed;
+        opacity: 0;
+        width: 0;
+    }
+
+    .radio-toolbar label {
+        display: inline-block;
+        padding: 0.5% 1%;
+        font-size: 2vh;
+        background-color: white;
+        border: 1px solid black;
+    }
+
+    .radio-toolbar label:hover {
+        background-color: lightgray;
+    }
+
+    .radio-toolbar input[type="radio"]:checked+label {
+        color: white;
+        background-color: black;
+    }
+
+    #generate {
+        width: 90%;
+        padding: 2%;
+        font-size: 5vh;
+        color: white;
+        background-color: rgb(165, 5, 10);
+        border: 2px solid black;
+    }
+
+    #generate:hover,
+    #generate:disabled {
+        color: black;
+        background-color: lightgray;
+        cursor: pointer;
+    }
+
+    .loader {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        border: 15px solid rgb(165, 5, 10);
+        border-top: 15px solid white;
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        margin: -75px 0 0 -75px;
+        animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
 
 <body>
-    <br>
-    <div id="content">
-        <form id="generate-graphic-form" autocomplete=off>
-            <h3 style="text-align: center">Text Graphic Generator</h3>
-            <div class="container-top">
-                <div class="form-group">
-                    <textarea class="form-control" id="quote" rows=5 placeholder="Your Amazing Quote"
-                        required></textarea>
-                </div>
-                <hr>
-                <div class="form-group">
-                    <div>
-                        <label class="form-label"><b>Text Formatting Options</b></label>
-                    </div>
-                    <div>
-                        <label class="form-label" for="wrap-text">Wrap Text: </label>
-                        <input type="checkbox" class="wrap-text-checkbox" id="wrap-text" checked="checked">
-                    </div>
-                    <div>
-                        <label class="form-label" for="reduce-punctuation">Reduce Punctuation: </label>
-                        <input type="checkbox" class="reduce-punctuation-checkbox" id="reduce-punctuation"
-                            checked="checked">
-                    </div>
-                    <div>
-                        <label class="form-label">Alignment Style: </label>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="alignment-style-smart" name="alignment-style-radio" value="smart"
-                                class="custom-control-input" checked="checked">
-                            <label class="custom-control-label" for="alignment-style-smart">Smart</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="alignment-style-left" name="alignment-style-radio" value="left"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="alignment-style-left">Left</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="alignment-style-right" name="alignment-style-radio" value="right"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="alignment-style-right">Right</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="alignment-style-center" name="alignment-style-radio" value="center"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="alignment-style-center">Center</label>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="form-group">
-                    <div>
-                        <label class="form-label"><b>Graphic Styling Options</b></label>
-                    </div>
-                    <div>
-                        <label class="form-label">Color Template: </label>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="color-template-black-white" name="color-template-radio"
-                                value="black-white" class="custom-control-input" checked="checked">
-                            <label class="custom-control-label" for="color-template-black-white">Black Text On
-                                White</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="color-template-white-black" name="color-template-radio"
-                                value="white-black" class="custom-control-input">
-                            <label class="custom-control-label" for="color-template-white-black">White Text On
-                                Black</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="color-template-white-red" name="color-template-radio"
-                                value="white-red" class="custom-control-input">
-                            <label class="custom-control-label" for="color-template-white-red">White Text On Red</label>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="form-label">Watermark Position: </label>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="watermark-position-all" name="watermark-position-radio" value="all"
-                                class="custom-control-input" checked="checked">
-                            <label class="custom-control-label" for="watermark-position-all">All Corners</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="watermark-position-top-left" name="watermark-position-radio"
-                                value="top_left" class="custom-control-input">
-                            <label class="custom-control-label" for="watermark-position-top-left">Top Left</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="watermark-position-top-right" name="watermark-position-radio"
-                                value="top_right" class="custom-control-input">
-                            <label class="custom-control-label" for="watermark-position-top-right">Top Right</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="watermark-position-bottom-left" name="watermark-position-radio"
-                                value="bottom_left" class="custom-control-input">
-                            <label class="custom-control-label" for="watermark-position-bottom-left">Bottom Left</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="watermark-position-bottom-right" name="watermark-position-radio"
-                                value="bottom_right" class="custom-control-input">
-                            <label class="custom-control-label" for="watermark-position-bottom-right">Bottom
-                                Right</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="watermark-position-none" name="watermark-position-radio"
-                                value="none" class="custom-control-input">
-                            <label class="custom-control-label" for="watermark-position-none">None</label>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="lds-css-loading ng-scope" id="lds-css-loading" style="width: 100%; margin: 0px auto">
-                    <div class="lds-spinner" style="width:100%; height:100%; margin: 0px auto">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </div>
-                </div>
-                <input type="submit" id="generate-graphic" class="btn btn-block btn-success" value="Generate">
-        </form>
+    <div class="w3-content">
+
+        <header>
+            <h1 class="w3-center">TEXT GRAPHIC GENERATOR</h1>
+        </header>
+
+        <div class="w3-row">
+            <div class="w3-center">
+                <h2>
+                    <textarea class="w3-center w3-border" id="text" placeholder="YOUR TEXT" required></textarea>
+                </h2>
+            </div>
+        </div>
+
+        <div class="w3-row">
+            <h2 class="w3-center">
+                TEXT WRAP
+            </h2>
+            <div class="radio-toolbar w3-center">
+                <input type="radio" id="text-wrap-auto" name="text-wrap-radio" value="auto" checked>
+                <label for="text-wrap-auto">AUTO</label>
+                <input type="radio" id="text-wrap-none" name="text-wrap-radio" value="none">
+                <label for="text-wrap-none">NONE</label>
+            </div>
+        </div>
+
+        <div class="w3-row">
+            <h2 class="w3-center">
+                PUNCTUATION STYLE
+            </h2>
+            <div class="radio-toolbar w3-center">
+                <input type="radio" id="punctuation-style-reduce" name="punctuation-style-radio" value="reduce" checked>
+                <label for="punctuation-style-reduce">REDUCE</label>
+                <input type="radio" id="punctuation-style-keep" name="punctuation-style-radio" value="keep">
+                <label for="punctuation-style-keep">KEEP</label>
+            </div>
+        </div>
+
+        <div class="w3-row">
+            <h2 class="w3-center">
+                ALIGNMENT STYLE
+            </h2>
+            <div class="radio-toolbar w3-center">
+                <input type="radio" id="alignment-style-smart" name="alignment-style-radio" value="smart" checked>
+                <label for="alignment-style-smart">SMART</label>
+                <input type="radio" id="alignment-style-left" name="alignment-style-radio" value="left">
+                <label for="alignment-style-left">LEFT</label>
+                <input type="radio" id="alignment-style-right" name="alignment-style-radio" value="right">
+                <label for="alignment-style-right">RIGHT</label>
+                <input type="radio" id="alignment-style-center" name="alignment-style-radio" value="center">
+                <label for="alignment-style-center">CENTER</label>
+            </div>
+        </div>
+
+        <div class="w3-row">
+            <h2 class="w3-center">
+                COLOR TEMPLATE
+            </h2>
+            <div class="radio-toolbar w3-center">
+                <input type="radio" id="color-template-black-on-white" name="color-template-radio"
+                    value="black_on_white" checked>
+                <label for="color-template-black-on-white">BLACK ON WHITE</label>
+                <input type="radio" id="color-template-white-on-black" name="color-template-radio"
+                    value="white_on_black">
+                <label for="color-template-white-on-black">WHITE ON BLACK</label>
+                <input type="radio" id="color-template-white-on-red" name="color-template-radio" value="white_on_red">
+                <label for="color-template-white-on-red">WHITE ON RED</label>
+            </div>
+        </div>
+
+        <div class="w3-row">
+            <h2 class="w3-center">
+                WATERMARK POSITION
+            </h2>
+            <div class="radio-toolbar w3-center">
+                <input type="radio" id="watermark-position-all" name="watermark-position-radio" value="all" checked>
+                <label for="watermark-position-all">ALL</label>
+                <input type="radio" id="watermark-position-top-left" name="watermark-position-radio" value="top_left">
+                <label for="watermark-position-top-left">TOP LEFT</label>
+                <input type="radio" id="watermark-position-top-right" name="watermark-position-radio" value="top_right">
+                <label for="watermark-position-top-right">TOP RIGHT</label>
+                <input type="radio" id="watermark-position-bottom-left" name="watermark-position-radio"
+                    value="bottom_left">
+                <label for="watermark-position-bottom-left">BOTTOM LEFT</label>
+                <input type="radio" id="watermark-position-bottom-right" name="watermark-position-radio"
+                    value="bottom_right">
+                <label for="watermark-position-bottom-right">BOTTOM RIGHT</label>
+                <input type="radio" id="watermark-position-none" name="watermark-position-radio" value="none">
+                <label for="watermark-position-none">NONE</label>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="w3-row">
+            <div class="w3-center">
+                <button id="generate">GENERATE</button>
+            </div>
+            <div class="loader"></div>
+        </div>
+
+        <br>
+
     </div>
-    <br>
-    <script src={{ url_for('static', filename="js/formHandler.js") }}></script>
+
+    <script src={{ url_for('static', filename="js/jquery.min.js") }}></script>
+    <script src={{ url_for('static', filename="js/generate.js") }}></script>
+
 </body>
 
 </html>

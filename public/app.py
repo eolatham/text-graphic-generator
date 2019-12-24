@@ -46,9 +46,9 @@ def index() -> str:
 
 @app.route("/check", methods=["POST"])
 def check():
-    quote = request.json.get("quote")
+    text = request.json.get("text")
     reduce_punctuation = request.json.get("reduce_punctuation")
-    text_passed, warning_msg = check_text(quote, reduce_punctuation)
+    text_passed, warning_msg = check_text(text, reduce_punctuation)
     return "" if text_passed else warning_msg
 
 
@@ -78,18 +78,18 @@ def generate():
         )
         return bytesio(img)
 
-    quote = request.json.get("quote")
+    text = request.json.get("text")
     options = {
-        "wrap_text": request.json.get("wrap_text"),
-        "reduce_punctuation": request.json.get("reduce_punctuation"),
+        "wrap_text": request.json.get("text_wrap") == "auto",
+        "reduce_punctuation": request.json.get("punctuation_style") == "reduce",
         "alignment_style": request.json.get("alignment_style"),
         "color_template": request.json.get("color_template"),
         "watermark_position": request.json.get("watermark_position"),
     }
     return send_file(
-        generate_text_graphic(quote, options),
+        generate_text_graphic(text, options),
         mimetype="image/png",
-        attachment_filename="image.png",
+        attachment_filename="graphic.png",
         as_attachment=True,
     )
 

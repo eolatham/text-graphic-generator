@@ -61,7 +61,7 @@ function generateGraphic(formData) {
         });
 }
 
-function generate() {
+function handleEvents() {
     $('#generate').click(function () {
         showLoaderAndDisableButton();
         const formData = {
@@ -76,4 +76,4 @@ function generate() {
     });
 }
 
-$(document).ready(generate());
+$(document).ready(handleEvents());

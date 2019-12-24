@@ -6,7 +6,8 @@
 - Clone the GitLab repository
 - Run `sudo apt-get install build-essential`
 - Run `cd text-graphic-generator-webapp`
-- Run `make init`
+- Run `make setup`
+- Run `make deploy`
 - You're done!
 
 ## TODO

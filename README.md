@@ -13,3 +13,8 @@
 ## TODO
 
 - Review and polish Python code
+  - Look into reducing memory consumption
+
+- Continue to improve UI
+
+- Look into page authentication so that only I can use it

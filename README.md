@@ -12,5 +12,3 @@
 ## TODO
 
 - Review and polish Python code
-- Improve HTML and make it more mobile friendly
-  - Also make sure the loading icon gets hidden properly in Safari

@@ -7,5 +7,5 @@ setup:
 
 deploy:
 	sudo cp supervisor.conf /etc/supervisor/conf.d
-	sudo supervisorctl reread
-	sudo supervisorctl update
+	sudo service supervisor stop
+	sudo service supervisor start

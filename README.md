@@ -1,20 +1,51 @@
-# Text Graphic Generator Webapp
+# **Text Graphic Generator Webapp**
 
-## To Deploy on a Google Cloud Platform Compute Engine VM (Ubuntu 18.04 LTS)
+## **Deployment**
 
-- SSH into the VM
-- Clone the GitLab repository
-- Run `sudo apt-get install build-essential`
-- Run `cd text-graphic-generator-webapp`
-- Run `make setup`
-- Run `make deploy`
-- You're done!
+### **Server Information**
 
-## TODO
+- **Server type:** *[Google Cloud Platform Compute Engine VM](https://cloud.google.com/compute/)*
+- **Project name:** *pioneering-mode-262914*
+- **Project owner:** *ericoliverlatham*
+- **VM name:** *text-graphic-generator*
+- **VM zone:** *us-east1-d*
+- **VM operating system:** *Ubuntu 18.04 LTS*
 
-- Review and polish Python code
-  - Look into reducing memory consumption
+### **Connecting to the Server**
 
-- Continue to improve UI
+1. Enter [Google Cloud Shell](https://console.cloud.google.com/home/dashboard?project=pioneering-mode-262914&cloudshell=true) (or any terminal on a machine with [Google Cloud SDK](https://cloud.google.com/sdk/docs/quickstarts) installed).
 
-- Look into page authentication so that only I can use it
+2. Run `gcloud compute ssh ericoliverlatham@text-graphic-generator --project pioneering-mode-262914 --zone us-east1-d` to SSH into the VM.
+
+### **Initial Deployment Process**
+
+1. Run `sudo apt-get install build-essential` to install some basic packages that will be useful later.
+
+2. Set up an [SSH key](https://gitlab.com/help/ssh/README#generating-a-new-ssh-key-pair) on the VM and register it with [GitLab](https://gitlab.com/) (*@eolatham*).
+
+3. Clone the [GitLab repository](https://gitlab.com/eolatham/text-graphic-generator-webapp).
+
+4. Run `cd text-graphic-generator-webapp` to enter the repository.
+
+5. Run `make setup` to install all program dependencies.
+
+6. Run `make deploy` to start the webapp.
+
+### **Subsequent Deployment Process**
+
+1. Run `cd text-graphic-generator-webapp` to enter the repository.
+
+2. Run `git pull` to download any updated code.
+
+3. Run `make deploy` to restart the webapp.
+
+---
+
+## **Future Tasks**
+
+- Review and polish backend code.
+  - Look into reducing memory consumption.
+
+- Continue to improve frontend user interface.
+
+- Look into page authentication so that only I can use it.

@@ -64,8 +64,14 @@
         unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
     }
 
-    #page-container {
+    #content {
         max-width: 800px;
+    }
+
+    .w3-row,
+    .w3-center {
+        margin: 0;
+        padding: 0;
     }
 
     body,
@@ -87,13 +93,16 @@
     #text {
         width: 100%;
         height: 10vh;
-        margin-top: -1vh;
         resize: vertical;
         text-transform: uppercase;
     }
 
     #text::placeholder {
         color: lightgray;
+    }
+
+    .radio-toolbar {
+        margin-bottom: 1vh;
     }
 
     .radio-toolbar input[type="radio"] {
@@ -108,7 +117,7 @@
         padding: 1vh 2vh;
         font-size: 2vh;
         background-color: white;
-        border: 0.1vh solid black;
+        border: 0.2vh solid black;
     }
 
     .radio-toolbar label:hover {
@@ -122,12 +131,12 @@
 
     #generate {
         width: 100%;
-        margin: 0 1vh;
+        margin-top: 0.75vh;
         padding: 2%;
         font-size: 5vh;
         color: white;
         background-color: rgb(165, 5, 10);
-        border: 0.2vh solid black;
+        border: 0.4vh solid black;
     }
 
     #generate:hover,
@@ -172,7 +181,8 @@
 </style>
 
 <body>
-    <div class="w3-content" id="page-container">
+
+    <div class="w3-content" id="content">
 
         <header>
             <h1 class=" w3-center">TEXT GRAPHIC GENERATOR</h1>
@@ -263,8 +273,6 @@
                 <label for="watermark-position-none">NONE</label>
             </div>
         </div>
-
-        <br>
 
         <div class="w3-row">
             <div class="w3-center">

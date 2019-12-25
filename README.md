@@ -43,9 +43,9 @@
 
 ## **Future Tasks**
 
-- Review and polish backend code.
+- Review, polish, and clarify backend code.
   - Look into reducing memory consumption.
 
-- Continue to improve frontend user interface.
-
 - Look into page authentication so that only I can use it.
+
+- Continue to improve frontend user interface.

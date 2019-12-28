@@ -1,6 +1,7 @@
 # Existing files
-\.vscode/
+.vscode/
 *.log
+Pipfile*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

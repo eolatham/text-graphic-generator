@@ -1,5 +1,25 @@
 # **Text Graphic Generator Webapp**
 
+## **Development**
+
+### **Initial Environment Setup**
+
+1. Set up an [SSH key](https://gitlab.com/help/ssh/README#generating-a-new-ssh-key-pair) on the VM and register it with [GitLab](https://gitlab.com/) (*@eolatham*).
+
+2. Clone the [GitLab repository](https://gitlab.com/eolatham/text-graphic-generator-webapp).
+
+3. Run `cd text-graphic-generator-webapp` to enter the repository.
+
+4. Run `make setup-dev` to install all program dependencies in a [pipenv](https://pipenv-fork.readthedocs.io/en/latest/).
+
+5. Run `pipenv shell` to enter the pipenv.
+
+6. Run `cd public` to enter the public directory.
+
+7. Run `flask run` to host the webapp on localhost.
+
+---
+
 ## **Deployment**
 
 ### **Server Information**
@@ -27,7 +47,7 @@
 
 4. Run `cd text-graphic-generator-webapp` to enter the repository.
 
-5. Run `make setup` to install all program dependencies.
+5. Run `make setup-dep` to install all program dependencies.
 
 6. Run `make deploy` to start the webapp.
 
@@ -44,7 +64,8 @@
 ## **Future Tasks**
 
 - Review, polish, and clarify backend code.
-  - Look into reducing memory consumption.
+  
+   - Look into reducing memory consumption.
 
 - Look into page authentication so that only I can use it.
 

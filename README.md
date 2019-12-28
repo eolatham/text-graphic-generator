@@ -10,7 +10,7 @@
 
 3. Run `cd text-graphic-generator-webapp` to enter the repository.
 
-4. Run `make setup-dev` to install all program dependencies in a [pipenv](https://pipenv-fork.readthedocs.io/en/latest/).
+4. Run `pipenv install -r requirements.txt` to install all program dependencies in a [pipenv](https://pipenv-fork.readthedocs.io/en/latest/).
 
 5. Run `pipenv shell` to enter the pipenv.
 
@@ -47,7 +47,7 @@
 
 4. Run `cd text-graphic-generator-webapp` to enter the repository.
 
-5. Run `make setup-dep` to install all program dependencies.
+5. Run `make setup` to install all program dependencies.
 
 6. Run `make deploy` to start the webapp.
 

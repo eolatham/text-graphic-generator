@@ -1,11 +1,14 @@
 # STL Imports
 import io
-from typing import Tuple
+from typing import Tuple, List
 from random import choice
 
 # PIP Imports
 from PIL import Image, ImageFont, ImageDraw, ImageOps
 from numpy import array, argwhere
+
+# Local Imports
+from variables import font_file, color_templates
 
 
 def pil_image(img: array) -> Image.Image:
@@ -124,3 +127,21 @@ def add_watermark(
     else:
         img.paste(watermark, positions[position], watermark)
     return img
+
+
+def generate_text_graphic(text: str, words: List[str], **options) -> io.BytesIO:
+    options.update(color_templates[options["color_template"]])
+    font_size = generate_font_size(text)
+    font = make_font(font_file, font_size)
+    line_spacing = generate_line_spacing(font_size)
+    text_alignment = get_text_alignment(text, options["alignment_style"])
+    canvas_size = generate_text_graphic_canvas_size(text, font)
+    img = make_canvas(canvas_size, options["bg_color"])
+    img = draw_text(img, text, options["fg_color"], font, line_spacing, text_alignment)
+    img = remove_border_from_bicolor_text_graphic(numpy_array(img), options["bg_color"])
+    border_width = generate_border_width(img)
+    img = add_border(pil_image(img), border_width, options["bg_color"])
+    img = add_watermark(
+        img, options["watermark_file"], border_width, options["watermark_position"],
+    )
+    return bytesio(img)

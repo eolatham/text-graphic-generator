@@ -50,38 +50,6 @@ def text_has_too_many_consec_letters(text: str, letters: str) -> bool:
     return search(pattern, text) is not None
 
 
-def format_text(text: str, reduce_punct: bool) -> Tuple[str, List[str]]:
-    """
-    Format the given text and return it along with a list of its words.
-    Raise InvalidTextSubmissionException if the given text breaks the rules.
-    """
-    text = __format_text(text, reduce_punct)
-    words = text.split()
-
-    if text_is_blank(text, words):
-        message = "Your text is blank\nPlease try again"
-        raise InvalidTextSubmissionException(text, message)
-    elif text_has_no_words(text, allowed_letters):
-        message = "Your text has no words\nPlease try again"
-        raise InvalidTextSubmissionException(text, message)
-    elif text_exceeds_max_word_count(words, max_word_count):
-        message = f"Your text exceeds the maximum word count of {max_word_count}\nPlease try again"
-        raise InvalidTextSubmissionException(text, message)
-    elif text_exceeds_max_word_length(words, max_word_len):
-        message = f"Your text contains a word that exceeds the maximum word length of {max_word_len}\nPlease try again"
-        raise InvalidTextSubmissionException(text, message)
-    elif text_has_bad_char(text, allowed_chars):
-        message = f"Your text deviates from the allowed characters of {repr(allowed_chars)}\nPlease try again"
-        raise InvalidTextSubmissionException(text, message)
-    elif text_has_too_many_consec_letters(text, allowed_letters):
-        message = (
-            "Your text contains too many consecutive matching letters\nPlease try again"
-        )
-        raise InvalidTextSubmissionException(text, message)
-
-    return text, words
-
-
 def possible_max_line_lengths(text: str, words: List[str]) -> List[int]:
     """
     Returns a list of natural numbers ranging from 1 to the
@@ -185,3 +153,40 @@ def square_uniform_wrap(text: str, words: List[str]) -> str:
         )
 
     return best_shaped_candidate(candidate_items)
+
+
+def format_text(
+    text: str, reduce_punct: bool, wrap_text: bool
+) -> Tuple[str, List[str]]:
+    """
+    Format the given text and return it along with a list of its words.
+    Raise InvalidTextSubmissionException if the given text breaks the rules.
+    """
+    text = __format_text(text, reduce_punct)
+    words = text.split()
+
+    if text_is_blank(text, words):
+        message = "Your text is blank\nPlease try again"
+        raise InvalidTextSubmissionException(text, message)
+    elif text_has_no_words(text, allowed_letters):
+        message = "Your text has no words\nPlease try again"
+        raise InvalidTextSubmissionException(text, message)
+    elif text_exceeds_max_word_count(words, max_word_count):
+        message = f"Your text exceeds the maximum word count of {max_word_count}\nPlease try again"
+        raise InvalidTextSubmissionException(text, message)
+    elif text_exceeds_max_word_length(words, max_word_len):
+        message = f"Your text contains a word that exceeds the maximum word length of {max_word_len}\nPlease try again"
+        raise InvalidTextSubmissionException(text, message)
+    elif text_has_bad_char(text, allowed_chars):
+        message = f"Your text deviates from the allowed characters of {repr(allowed_chars)}\nPlease try again"
+        raise InvalidTextSubmissionException(text, message)
+    elif text_has_too_many_consec_letters(text, allowed_letters):
+        message = (
+            "Your text contains too many consecutive matching letters\nPlease try again"
+        )
+        raise InvalidTextSubmissionException(text, message)
+
+    if wrap_text:
+        text = square_uniform_wrap(text, words)
+
+    return text, words

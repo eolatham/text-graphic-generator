@@ -13,7 +13,6 @@ function beginResponseHandlingChain(response) {
     return Promise.resolve(response);
 }
 
-
 function handleResponse(response) {
     if (response.status == 200) {
         return response.blob().then(blob => {
@@ -37,6 +36,7 @@ function handleResponse(response) {
 }
 
 function generateGraphic(formData) {
+    console.log(formData);
     fetch('generate',
         {
             method: 'POST',
@@ -52,8 +52,8 @@ function handleEvents() {
         showLoaderAndDisableButton();
         const formData = {
             text: $('#text').val(),
-            text_wrap: $('input[name=text-wrap-radio]:checked').val(),
-            punctuation_style: $('input[name=punctuation-style-radio]:checked').val(),
+            wrap_text: $('input[name=text-wrap-radio]:checked').val() == "auto",
+            reduce_punctuation: $('input[name=punctuation-style-radio]:checked').val() == "reduce",
             alignment_style: $('input[name=alignment-style-radio]:checked').val(),
             color_template: $('input[name=color-template-radio]:checked').val(),
             watermark_position: $('input[name=watermark-position-radio]:checked').val(),

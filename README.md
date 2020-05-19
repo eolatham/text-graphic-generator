@@ -29,7 +29,6 @@ With the help of [Pipenv](https://github.com/pypa/pipenv) and [Make](https://www
 ### **[GraphicFunctions.py](public/GraphicFunctions.py)**
 
 - assumes all image variables and parameters are either [PIL Images](https://pillow.readthedocs.io/en/stable/reference/Image.html) or [Numpy arrays](https://www.numpy.org/devdocs/reference/generated/numpy.array.html) of the [RGB color model](https://www.geeksforgeeks.org/computer-graphics-the-rgb-color-model/)
-- assumes all color variables and parameters are BGR tuples (because that's how [PIL](https://pillow.readthedocs.io/en/stable/#) and [NumPy](https://www.numpy.org/devdocs/) interpret RGB colors)
 
 ### **[variables.py](public/variables.py)**
 

@@ -6,10 +6,11 @@ from re import search
 from unidecode import unidecode
 
 # Local Imports
+from Exceptions import InvalidTextSubmissionException
 from variables import allowed_letters, allowed_chars, max_word_count, max_word_len
 
 
-def format_text(text: str, reduce_punct: bool) -> str:
+def __format_text(text: str, reduce_punct: bool) -> str:
     text = unidecode(text).upper()
 
     if reduce_punct:
@@ -49,39 +50,36 @@ def text_has_too_many_consec_letters(text: str, letters: str) -> bool:
     return search(pattern, text) is not None
 
 
-def __check_text(text: str, words: List[str]) -> Tuple[bool, str or None]:
+def format_text(text: str, reduce_punct: bool) -> Tuple[str, List[str]]:
+    """
+    Format the given text and return it along with a list of its words.
+    Raise InvalidTextSubmissionException if the given text breaks the rules.
+    """
+    text = __format_text(text, reduce_punct)
+    words = text.split()
+
     if text_is_blank(text, words):
-        return (False, f"Your text is blank\nPlease try again")
-
+        message = "Your text is blank\nPlease try again"
+        raise InvalidTextSubmissionException(text, message)
     elif text_has_no_words(text, allowed_letters):
-        return (False, f"Your text has no words\nPlease try again")
-
+        message = "Your text has no words\nPlease try again"
+        raise InvalidTextSubmissionException(text, message)
     elif text_exceeds_max_word_count(words, max_word_count):
-        return (
-            False,
-            f"Your text exceeds the maximum word count of {max_word_count}\nPlease try again",
-        )
+        message = f"Your text exceeds the maximum word count of {max_word_count}\nPlease try again"
+        raise InvalidTextSubmissionException(text, message)
     elif text_exceeds_max_word_length(words, max_word_len):
-        return (
-            False,
-            f"Your text contains a word that exceeds the maximum word length of {max_word_len}\nPlease try again",
-        )
+        message = f"Your text contains a word that exceeds the maximum word length of {max_word_len}\nPlease try again"
+        raise InvalidTextSubmissionException(text, message)
     elif text_has_bad_char(text, allowed_chars):
-        return (
-            False,
-            f"Your text deviates from the allowed characters of {repr(allowed_chars)}\nPlease try again",
-        )
+        message = f"Your text deviates from the allowed characters of {repr(allowed_chars)}\nPlease try again"
+        raise InvalidTextSubmissionException(text, message)
     elif text_has_too_many_consec_letters(text, allowed_letters):
-        return (
-            False,
-            f"Your text contains too many consecutive matching letters\nPlease try again",
+        message = (
+            "Your text contains too many consecutive matching letters\nPlease try again"
         )
-    return True, None
+        raise InvalidTextSubmissionException(text, message)
 
-
-def check_text(text: str, reduce_punct: bool) -> Tuple[bool, str or None]:
-    text = format_text(text, reduce_punct)
-    return __check_text(text, text.split())
+    return text, words
 
 
 def possible_max_line_lengths(text: str, words: List[str]) -> List[int]:

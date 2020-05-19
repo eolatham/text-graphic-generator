@@ -2,28 +2,15 @@
 # STL
 import io
 import os
+from typing import List
 
 # PIP
 from flask import Flask, render_template, request, send_file, send_from_directory
 
 # LOCAL
-from TextFunctions import check_text, format_text, square_uniform_wrap
-from GraphicFunctions import (
-    pil_image,
-    numpy_array,
-    bytesio,
-    generate_font_size,
-    make_font,
-    generate_line_spacing,
-    get_text_alignment,
-    generate_text_graphic_canvas_size,
-    make_canvas,
-    draw_text,
-    remove_border_from_bicolor_text_graphic,
-    generate_border_width,
-    add_border,
-    add_watermark,
-)
+import TextFunctions as tf
+import GraphicFunctions as gf
+from Exceptions import InvalidTextSubmissionException
 from variables import font_file, color_templates
 
 app = Flask(__name__)
@@ -40,45 +27,44 @@ def favicon():
 
 
 @app.route("/")
-def index() -> str:
+def index():
     return render_template("index.html")
 
 
-@app.route("/check", methods=["POST"])
-def check():
-    text = request.json.get("text")
-    reduce_punctuation = request.json.get("reduce_punctuation")
-    text_passed, warning_msg = check_text(text, reduce_punctuation)
-    return "" if text_passed else warning_msg
+def generate_text_graphic(text: str, words: List[str], options: dict) -> io.BytesIO:
+    text = tf.format_text(text, options["reduce_punctuation"])
+    if options["wrap_text"]:
+        text = tf.square_uniform_wrap(text, words)
+    options.update(color_templates[options["color_template"]])
+    font_size = gf.generate_font_size(text)
+    font = gf.make_font(font_file, font_size)
+    line_spacing = gf.generate_line_spacing(font_size)
+    text_alignment = gf.get_text_alignment(text, options["alignment_style"])
+    canvas_size = gf.generate_text_graphic_canvas_size(text, font)
+    img = gf.make_canvas(canvas_size, options["bg_color"])
+    img = gf.draw_text(
+        img, text, options["fg_color"], font, line_spacing, text_alignment
+    )
+    img = gf.remove_border_from_bicolor_text_graphic(
+        gf.numpy_array(img), options["bg_color"]
+    )
+    border_width = gf.generate_border_width(img)
+    img = gf.add_border(gf.pil_image(img), border_width, options["bg_color"])
+    img = gf.add_watermark(
+        img, options["watermark_file"], border_width, options["watermark_position"]
+    )
+    return gf.bytesio(img)
 
 
 @app.route("/generate", methods=["POST"])
 def generate():
-    def generate_text_graphic(text: str, options: dict) -> io.BytesIO:
-        text = format_text(text, options["reduce_punctuation"])
-        if options["wrap_text"]:
-            text = square_uniform_wrap(text, text.split())
-        options.update(color_templates[options["color_template"]])
-        font_size = generate_font_size(text)
-        font = make_font(font_file, font_size)
-        line_spacing = generate_line_spacing(font_size)
-        text_alignment = get_text_alignment(text, options["alignment_style"])
-        canvas_size = generate_text_graphic_canvas_size(text, font)
-        img = make_canvas(canvas_size, options["bg_color"])
-        img = draw_text(
-            img, text, options["fg_color"], font, line_spacing, text_alignment
+    try:
+        text, words = tf.format_text(
+            request.json.get("text"), request.json.get("reduce_punctuation")
         )
-        img = remove_border_from_bicolor_text_graphic(
-            numpy_array(img), options["bg_color"]
-        )
-        border_width = generate_border_width(img)
-        img = add_border(pil_image(img), border_width, options["bg_color"])
-        img = add_watermark(
-            img, options["watermark_file"], border_width, options["watermark_position"]
-        )
-        return bytesio(img)
+    except InvalidTextSubmissionException as e:
+        return e.message, 400
 
-    text = request.json.get("text")
     options = {
         "wrap_text": request.json.get("text_wrap") == "auto",
         "reduce_punctuation": request.json.get("punctuation_style") == "reduce",
@@ -87,7 +73,7 @@ def generate():
         "watermark_position": request.json.get("watermark_position"),
     }
     return send_file(
-        generate_text_graphic(text, options),
+        generate_text_graphic(text, words, options),
         mimetype="image/png",
         attachment_filename="graphic.png",
         as_attachment=True,

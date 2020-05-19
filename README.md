@@ -4,6 +4,8 @@
 
 This project provides the functionality to generate high quality, bicolor, social-media-friendly text graphics in a simple [Flask](https://flask.palletsprojects.com/en/1.1.x/)/JavaScript web app.
 
+![example graphic](example.png)
+
 ## **Workflow**
 
 With the help of [Pipenv](https://github.com/pypa/pipenv) and [Make](https://www.gnu.org/software/make/manual/html_node/Introduction.html), managing and working within this repo are very simple.

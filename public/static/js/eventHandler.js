@@ -19,6 +19,7 @@ function handleResponse(response) {
             hideLoaderAndEnableButton()
             var a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
+            a.download = 'graphic.png';
             a.type = 'image/png';
             a.rel = 'noopener';
             a.click();

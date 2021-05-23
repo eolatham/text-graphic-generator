@@ -8,12 +8,12 @@ This project provides the functionality to generate high quality, bicolor, socia
 
 ## **Workflow**
 
-With the help of [Pipenv](https://github.com/pypa/pipenv) and [Make](https://www.gnu.org/software/make/manual/html_node/Introduction.html), managing and working within this repo are very simple.
+With the help of [PDM](https://pdm.fming.dev/) and [Make](https://www.gnu.org/software/make/manual/html_node/Introduction.html), managing and working within this repo are very simple.
 
 ### **Setting Up Development Environment**
 
 - clone the repo and `cd` into it
-- run the command **`make setup`** to create a [Pipenv](https://github.com/pypa/pipenv) with all the required Python packages installed
+- run the command **`make setup`** to create a [PDM](https://pdm.fming.dev/) environment with all the required Python packages installed
 
 ### **Testing Web App**
 

@@ -1,5 +1,5 @@
 setup:
-	pipenv install
+	pdm install
 
 test:
-	pipenv run bash -c "cd public; flask run;"
+	pdm run bash -c "cd public; flask run;"

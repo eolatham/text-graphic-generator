@@ -1,0 +1,26 @@
+[project]
+name = "text-graphic-generator"
+version = "1.0.0"
+description = "A simple Flask/JavaScript web app that allows users to generate high quality, bicolor, social-media-friendly text graphics"
+authors = [
+    {name = "Eric Latham", email = "ericoliverlatham@gmail.com"},
+]
+dependencies = [
+    "numpy~=1.20",
+    "flask~=2.0",
+    "pillow~=8.2",
+    "unidecode~=1.2",
+]
+requires-python = ">=3.9"
+dynamic = ["classifiers"]
+license = {text = "MIT"}
+
+[project.urls]
+homepage = ""
+
+[build-system]
+requires = ["pdm-pep517"]
+build-backend = "pdm.pep517.api"
+
+[tool]
+[tool.pdm]

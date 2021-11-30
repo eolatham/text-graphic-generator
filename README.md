@@ -8,7 +8,7 @@
 
 ## Description
 
-This project provides the functionality to generate high quality, bicolor, social-media-friendly text graphics in a simple [Flask](https://flask.palletsprojects.com/en/1.1.x/)/JavaScript web app.
+This project provides the functionality to generate high quality, bicolor, social-media-friendly text graphics in a simple [Flask](https://flask.palletsprojects.com/en/1.1.x/)/JavaScript webapp.
 
 ![example graphic](example.png)
 
